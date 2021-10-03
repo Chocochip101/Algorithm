@@ -1,58 +1,44 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define MAX  10001
+#define MAX  1001
 using namespace std;
 typedef pair<int, int> p;
 
-int n;
-int Times[MAX];
-vector<int> graph[MAX];
-int indegree[MAX] = {0, };
+int n, k;
+int w;
+int buildingTime[MAX];
+int indegree[MAX] = { 0, };
+bool graph[MAX][MAX];
 int cache[MAX];
 
-int bfs() {
-	int res = 0;
-	queue<int> q;
+int solve(int now) {
+	int& ret = cache[now];
+	if (ret != -1) return ret;
 
-	for(int i = 1;i <=n; ++i)
-		if (!indegree[i]) {
-			cache[i] = Times[i];
-			q.push(i);
-		}
-
-	while (!q.empty()) {
-		int now = q.front(); q.pop();
-		for (int next : graph[now]) {
-			indegree[next]--;
-			if (!indegree[next]) {
-				q.push(next);
-			}
-
-			cache[next] = max(cache[next], cache[now] + Times[next]);
-		}
-	}
-
+	int t = 0;
 	for (int i = 1; i <= n; ++i)
-		res = max(res, cache[i]);
+		if (graph[now][i])
+			t = max(t, solve(i));
 
-	return res;
+	return ret = t + buildingTime[now];
 }
 signed main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0); cout.tie(0);
 
-	cin >> n;
-
-	for (int i = 1; i <= n; ++i) {
-		cin >> Times[i];
-		int  k; cin>> k;
-		while (k--) {
-			int a; cin >> a;
-			graph[a].push_back(i);
-			indegree[i]++;
+	int tc; cin >> tc;
+	while (tc--) {
+		memset(graph, false, sizeof(graph));
+		memset(cache, -1, sizeof(cache));
+		cin >> n >> k;
+		for (int i = 0; i < n; ++i)
+			cin >> buildingTime[i];
+		for (int i = 0; i < k; ++k) {
+			int x, y; cin >> x >> y;
+			indegree[y]++;
 		}
+		cin >> w;
+		cout << solve(w) << endl;
 	}
-
-	cout << bfs() << endl;
 	return 0;
 }
