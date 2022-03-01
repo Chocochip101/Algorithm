@@ -4,7 +4,6 @@
 using namespace std;
 typedef pair<int, int> p;
 
-using namespace std;
 int N; 
 int numbers[MAX];
 int answer[MAX] = {0,};
@@ -25,7 +24,7 @@ int main() {
 		stk.push(i);
 	}
 
-	// ¿ÀÅ«¼ö ¾øÀ½
+	// ï¿½ï¿½Å«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	while (!stk.empty()) {
 		answer[stk.top()] = -1;
 		stk.pop();
