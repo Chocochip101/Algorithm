@@ -28,7 +28,6 @@ signed main() {
     for(int i = 0; i < N; ++i)
         for(int j = 0; j < M; ++j)
             cin >> board[i][j];
-
     cout << solve(0, 0);
     return 0;
 }
