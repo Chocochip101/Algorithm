@@ -5,5 +5,4 @@
 - Link: [Beakjoon Online Judge](https://www.acmicpc.net/)
 
 ### 목표
-- SW 마에스트로
 - 1일 2문제
