@@ -1,4 +1,3 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
@@ -8,11 +7,9 @@ num = list(map(int, input().split()))
 l = max(num)
 h = sum(num)
 
-while l <= h:
-    mid = (l + h) // 2
+def getBlueRays(numbers, target):
     cnt = 0
     tempSum = 0
-    
     for i in range(N):
         if tempSum + num[i] > mid:
             tempSum = 0
@@ -21,8 +18,12 @@ while l <= h:
     
     if tempSum != 0:
         cnt += 1
+    return cnt
+
+while l <= h:
+    mid = (l + h) // 2
     
-    if cnt <= M:
+    if getBlueRays(num, mid) <= M:
         h = mid - 1
     else:
         l = mid + 1
