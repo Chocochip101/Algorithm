@@ -1,15 +1,14 @@
-import sys
+made = set()
+A, B = map(int, input().split())
 
-a, b = map(int, input().split())
-res = set()
-def solve(now):
-    if now > b:
+def make(prev: int):
+    if prev > B:
         return
-    if a <= now <= b:
-        res.add(now)
-    solve(int('4' + str(now)))
-    solve(int('7' + str(now)))
+    if A <= prev <= B:
+        made.add(prev)
+    make(int(str(prev) + "4"))
+    make(int(str(prev) + "7"))
     
-solve(4)
-solve(7)
-print(len(res))
+make(0)
+        
+print(len(made))
