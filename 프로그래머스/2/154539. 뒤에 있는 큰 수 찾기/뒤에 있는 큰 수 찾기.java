@@ -1,29 +1,20 @@
 import java.util.*;
 
 class Solution {
+    private int N;
     public int[] solution(int[] numbers) {
-        int[] answer = new int[numbers.length];
+        N = numbers.length;
+        int[] answer = new int[N];
         Arrays.fill(answer, -1);
-        int lastMax = numbers[numbers.length - 1];
+        Stack<Integer> stack = new Stack<>();
         
-        for(int i = numbers.length - 2; i > -1; --i){
-            if(numbers[i] >= lastMax){
-                lastMax = Math.max(numbers[i], lastMax);
-                continue;
+        stack.push(0);
+        for(int i = 1; i < numbers.length; i++){
+            while(!stack.isEmpty() && numbers[stack.peek()] < numbers[i]){
+                answer[stack.pop()] = numbers[i];
             }
-            for(int j = i + 1; j <numbers.length; j++){
-                if(numbers[i] < numbers[j]){
-                    answer[i] = numbers[j];
-                    break;
-                }
-                if(numbers[i] >= numbers[j] && numbers[i] < answer[j]){
-                    answer[i] = answer[j];
-                    break;
-                }
-            }
-            lastMax = Math.max(numbers[i], lastMax);
+            stack.push(i);
         }
         return answer;
     }
-    
 }
